@@ -11,7 +11,7 @@ export const Sidebar = () => {
       </div>
       <nav>
         <Link
-          href="/leaderboard"
+          href="/"
           className="bg-[#FFE84D] w-12 h-12 flex items-center justify-center rounded-xl"
         >
           <IconLeaderboard data-testid="icon-leaderboard" />
