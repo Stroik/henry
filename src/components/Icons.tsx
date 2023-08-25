@@ -1,10 +1,11 @@
-export const IconHenry = () => (
+export const IconHenry = (props: any) => (
   <svg
     width="40"
     height="24"
     viewBox="0 0 40 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <path d="M29.4356 0H20.9294V24H29.4356V0Z" fill="black" />
     <path d="M15.7179 0H7.18091V24H15.7179V0Z" fill="black" />
@@ -19,13 +20,14 @@ export const IconHenry = () => (
   </svg>
 );
 
-export const IconLeaderboard = () => (
+export const IconLeaderboard = (props: any) => (
   <svg
     width="24"
     height="24"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <path
       d="M8 1.9989C5.7909 1.9989 4 3.7899 4 5.9989V17.9989C4 20.2079 5.7909 21.9989 8 21.9989H16C18.2091 21.9989 20 20.2079 20 17.9989V5.9989C20 3.7899 18.2091 1.9989 16 1.9989H8ZM8 3.9989H16C17.1046 3.9989 18 4.8939 18 5.9989V17.9989C18 19.1039 17.1046 19.9989 16 19.9989H8C6.8954 19.9989 6 19.1039 6 17.9989V5.9989C6 4.8939 6.8954 3.9989 8 3.9989Z"
@@ -40,13 +42,14 @@ export const IconLeaderboard = () => (
   </svg>
 );
 
-export const IconArrowDown = () => (
+export const IconArrowDown = (props: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="21"
     height="20"
     viewBox="0 0 21 20"
     fill="none"
+    {...props}
   >
     <path
       d="M5.35535 7.53474C5.14702 7.5764 4.93702 7.6814 4.80952 7.87224C4.55452 8.2539 4.66118 8.78557 5.04368 9.03973L10.0362 12.3605C10.3153 12.5464 10.6928 12.5464 10.972 12.3605L15.9645 9.03973C16.347 8.78557 16.4537 8.2539 16.1987 7.87224C15.9437 7.49057 15.4112 7.38391 15.0287 7.6389L10.5037 10.6481L5.97951 7.6389C5.78868 7.51141 5.56452 7.49307 5.35535 7.53474Z"
@@ -55,13 +58,14 @@ export const IconArrowDown = () => (
   </svg>
 );
 
-export const IconArrowRight = () => (
+export const IconArrowRight = (props: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="25"
     height="24"
     viewBox="0 0 25 24"
     fill="none"
+    {...props}
   >
     <path
       d="M9.54559 18.1795C9.59559 18.4295 9.72159 18.6815 9.95059 18.8345C10.4086 19.1405 11.0466 19.0125 11.3516 18.5535L15.3366 12.5625C15.5596 12.2275 15.5596 11.7745 15.3366 11.4395L11.3516 5.44845C11.0466 4.98945 10.4086 4.86146 9.95059 5.16746C9.49259 5.47346 9.36459 6.11246 9.67059 6.57145L13.2816 12.0015L9.67059 17.4305C9.51759 17.6595 9.49559 17.9285 9.54559 18.1795Z"
@@ -70,13 +74,14 @@ export const IconArrowRight = () => (
   </svg>
 );
 
-export const IconArrowLeft = () => (
+export const IconArrowLeft = (props: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="25"
     height="24"
     viewBox="0 0 25 24"
     fill="none"
+    {...props}
   >
     <path
       d="M15.462 5.82246C15.412 5.57246 15.286 5.32046 15.057 5.16746C14.599 4.86146 13.961 4.98945 13.656 5.44845L9.671 11.4395C9.448 11.7745 9.448 12.2275 9.671 12.5625L13.656 18.5535C13.961 19.0125 14.599 19.1405 15.057 18.8345C15.515 18.5285 15.643 17.8895 15.337 17.4305L11.726 12.0005L15.337 6.57145C15.49 6.34245 15.512 6.07346 15.462 5.82246Z"

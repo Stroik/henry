@@ -49,6 +49,7 @@ export const Leaderboard = ({ data }: { data: any[] }) => {
             id="tour"
             value={tour}
             onChange={(e) => setTour(e.target.value)}
+            data-testid="tour"
           >
             <option value="" disabled>
               Tour
@@ -67,6 +68,7 @@ export const Leaderboard = ({ data }: { data: any[] }) => {
             id="seasson"
             value={seasson}
             onChange={(e) => setSeasson(e.target.value)}
+            data-testid="seasson"
           >
             <option value="" disabled>
               Seasson

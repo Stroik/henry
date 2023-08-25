@@ -8,19 +8,12 @@ import {
 } from "@tanstack/react-table";
 import { IconArrowLeft, IconArrowRight } from "./Icons";
 
-interface Button {
-  label: any;
-  onClick: () => void;
-  color: string;
-}
-
 interface Props {
   data: Array<any>;
   columns: Array<any>;
-  buttons?: Array<Button>;
 }
 
-export const Table = ({ columns, data, buttons }: Props) => {
+export const Table = ({ columns, data }: Props) => {
   const table = useReactTable({
     data,
     columns,
@@ -28,7 +21,6 @@ export const Table = ({ columns, data, buttons }: Props) => {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    enableRowSelection: true,
   });
 
   return (
@@ -81,6 +73,7 @@ export const Table = ({ columns, data, buttons }: Props) => {
         <button
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
+          data-testid="previous-page"
         >
           <IconArrowLeft />
         </button>
@@ -91,6 +84,7 @@ export const Table = ({ columns, data, buttons }: Props) => {
         <button
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
+          data-testid="next-page"
         >
           <IconArrowRight />
         </button>

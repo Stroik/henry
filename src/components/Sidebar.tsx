@@ -6,7 +6,7 @@ export const Sidebar = () => {
     <aside className="sidebar">
       <div className="brand">
         <Link href="/">
-          <IconHenry />
+          <IconHenry data-testid="icon-henry" />
         </Link>
       </div>
       <nav>
@@ -14,7 +14,7 @@ export const Sidebar = () => {
           href="/leaderboard"
           className="bg-[#FFE84D] w-12 h-12 flex items-center justify-center rounded-xl"
         >
-          <IconLeaderboard />
+          <IconLeaderboard data-testid="icon-leaderboard" />
         </Link>
       </nav>
     </aside>
