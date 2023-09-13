@@ -1,33 +1,25 @@
+import React from "react";
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
 import { PageHeader } from "@/components/PageHeader";
-import { render } from "@testing-library/react";
 
 describe("PageHeader", () => {
-  it("renders title and subtitle correctly", () => {
-    const props = {
-      title: "Test Title",
-      subtitle: "Test Subtitle",
-    };
-
-    const { getByText } = render(<PageHeader {...props} />);
-
-    const titleElement = getByText("Test Title");
-    const subtitleElement = getByText("Test Subtitle");
-
-    expect(titleElement).toBeTruthy();
-    expect(subtitleElement).toBeTruthy();
+  it("should render the title", () => {
+    const title = "My Page Title";
+    render(<PageHeader title={title} />);
+    expect(screen.getByText(title)).toBeInTheDocument();
   });
 
-  it("renders only title when no subtitle is provided", () => {
-    const props = {
-      title: "Test Title",
-    };
+  it("should render the subtitle if provided", () => {
+    const title = "My Page Title";
+    const subtitle = "My Page Subtitle";
+    render(<PageHeader title={title} subtitle={subtitle} />);
+    expect(screen.getByText(subtitle)).toBeInTheDocument();
+  });
 
-    const { getByText, queryByText } = render(<PageHeader {...props} />);
-
-    const titleElement = getByText("Test Title");
-    const subtitleElement = queryByText("Test Subtitle");
-
-    expect(titleElement).toBeTruthy();
-    expect(subtitleElement).toBeNull();
+  it("should not render the subtitle if not provided", () => {
+    const title = "My Page Title";
+    render(<PageHeader title={title} />);
+    expect(screen.queryByText("My Page Subtitle")).toBeNull();
   });
 });

@@ -5,7 +5,7 @@ export const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="brand">
-        <Link href="/">
+        <Link href="/" data-testid="link-to-home">
           <IconHenry data-testid="icon-henry" />
         </Link>
       </div>
@@ -13,7 +13,7 @@ export const Sidebar = () => {
         <Link
           href="/tour-leaderboard"
           className="bg-[#FFE84D] w-12 h-12 flex items-center justify-center rounded-xl"
-          prefetch={true}
+          data-testid="link-to-leaderboard"
         >
           <IconLeaderboard data-testid="icon-leaderboard" />
         </Link>

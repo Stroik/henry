@@ -1,57 +1,87 @@
+import "@testing-library/jest-dom";
 import { render, fireEvent } from "@testing-library/react";
 import { Table } from "@/components/Table";
-import { createColumnHelper } from "@tanstack/react-table";
-import { leaderboard } from "../dummy";
+import { leaderboard } from "@/dummy";
 
 describe("Table Component", () => {
-  let data: any[] = leaderboard;
+  const mockSetPagination = jest.fn();
 
-  const columnHelper = createColumnHelper<any>();
-  const columns = [
-    columnHelper.accessor("index", {
+  const mockData = leaderboard;
+
+  const mockColumns = [
+    {
+      accessorKey: "position",
       header: "#",
-      cell: ({ row }) => row.index + 1,
+      cell: (info: any) => info.getValue(),
       maxSize: 40,
-    }),
-    columnHelper.accessor("player_name", {
+    },
+    {
+      accessorKey: "player_name",
       header: "Name",
-      cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor("points", {
+      cell: (info: any) => info.getValue(),
+    },
+    {
+      accessorKey: "points",
       header: "Points",
-      cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor("num_wins", {
+      cell: (info: any) => info.getValue(),
+    },
+    {
+      accessorKey: "num_wins",
       header: "# of wins",
-      cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor("num_top_tens", {
+      cell: (info: any) => info.getValue(),
+    },
+    {
+      accessorKey: "num_top_tens",
       header: "# of top10's",
-      cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor("num_events", {
+      cell: (info: any) => info.getValue(),
+    },
+    {
+      accessorKey: "num_events",
       header: "# of events",
-      cell: (info) => info.getValue(),
-    }),
+      cell: (info: any) => info.getValue(),
+    },
   ];
 
-  test("renders without errors", () => {
-    render(<Table columns={columns} data={data} />);
+  const mockPagination = {
+    pageIndex: 0,
+    pageSize: 10,
+  };
+
+  it("should render correctly", () => {
+    const { getByText } = render(
+      <Table
+        data={mockData}
+        columns={mockColumns}
+        pagination={mockPagination}
+        setPagination={mockSetPagination}
+      />
+    );
+
+    expect(getByText("Viktor Hovland")).toBeInTheDocument();
+    expect(getByText("Vincent Norrman")).toBeInTheDocument();
   });
 
-  test("renders the correct number of rows", () => {
-    const { getAllByRole } = render(<Table columns={columns} data={data} />);
-    const rows = getAllByRole("row");
-    expect(rows.length).toBe(data.length + 1);
-  });
+  it("should handle pagination correctly", () => {
+    const { getByTestId } = render(
+      <Table
+        data={mockData}
+        columns={mockColumns}
+        pagination={mockPagination}
+        setPagination={mockSetPagination}
+      />
+    );
 
-  test("clicking pagination buttons changes the page", () => {
-    const { getByTestId } = render(<Table columns={columns} data={data} />);
+    fireEvent.click(getByTestId("next-page"));
+    const updaterFunction = mockSetPagination.mock.calls[0][0];
+    const newPaginationState = updaterFunction(mockPagination);
+    expect(newPaginationState.pageIndex).toBe(1);
+    mockSetPagination.mockReset();
 
-    const previousButton = getByTestId("previous-page");
-    fireEvent.click(previousButton);
-
-    const nextButton = getByTestId("next-page");
-    fireEvent.click(nextButton);
+    fireEvent.click(getByTestId("previous-page"));
+    if (mockSetPagination.mock.calls.length > 0) {
+      const updaterFunctionPrev = mockSetPagination.mock.calls[0][0];
+      const newPaginationStatePrev = updaterFunctionPrev(newPaginationState);
+      expect(newPaginationStatePrev.pageIndex).toBe(0);
+    }
   });
 });

@@ -1,30 +1,12 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import { IconArrowDown } from "@/components/Icons";
 import { Table } from "@/components/Table";
 import { useMemo, useState } from "react";
 import type { ColumnDef, PaginationState } from "@tanstack/react-table";
 import type { Ranking } from "@/types/Ranking";
 import { TableSkeleton } from "@/components/skeletons/TableSkeleton";
-
-type Options = {
-  pageIndex: number;
-  pageSize: number;
-  tourId: number;
-  season: number;
-};
-
-type Tour = 1 | 2 | 3;
-type Season = 2021 | 2020 | 2019;
-
-const fetchData = async ({ pageIndex, pageSize, tourId, season }: Options) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/tour-ranking?tour_id=${tourId}&season=${season}&pageIndex=${pageIndex}&pageSize=${pageSize}`
-  );
-  const data = await res.json();
-  return data;
-};
+import { useLeaderboard } from "@/hooks/useLeaderboard";
 
 export const Leaderboard = () => {
   const [tour, setTour] = useState<number>(1);
@@ -42,10 +24,7 @@ export const Leaderboard = () => {
     season: seasson,
   };
 
-  const dataQuery = useQuery({
-    queryKey: ["data", fetchDataOptions],
-    queryFn: () => fetchData(fetchDataOptions),
-  });
+  const { data } = useLeaderboard(fetchDataOptions);
 
   const defaultData = useMemo(() => [], []);
   const pagination = useMemo(
@@ -138,10 +117,10 @@ export const Leaderboard = () => {
           </select>
         </div>
       </div>
-      {dataQuery.data ? (
+      {data ? (
         <Table
           columns={columns}
-          data={dataQuery.data ?? defaultData}
+          data={data ?? defaultData}
           pagination={pagination}
           setPagination={setPagination}
         />

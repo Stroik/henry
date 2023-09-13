@@ -24,7 +24,6 @@ interface Props {
 }
 
 export const Table = ({ columns, data, pagination, setPagination }: Props) => {
-  console.log("data", data);
   const table = useReactTable({
     data: data?.rows,
     columns,
@@ -38,7 +37,6 @@ export const Table = ({ columns, data, pagination, setPagination }: Props) => {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    debugTable: true,
   });
 
   return (
@@ -93,7 +91,10 @@ export const Table = ({ columns, data, pagination, setPagination }: Props) => {
           <IconArrowLeft />
         </button>
         <span>
-          <strong>{table.getState().pagination.pageIndex + 1} </strong> de
+          <strong data-testid="current-page">
+            {table.getState().pagination.pageIndex + 1}{" "}
+          </strong>{" "}
+          de
           <strong> {table.getPageCount()}</strong>
         </span>
         <button

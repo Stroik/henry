@@ -1,23 +1,98 @@
-import { render, fireEvent } from "@testing-library/react";
-import { Leaderboard } from "../containers/Leaderboard";
-import { leaderboard } from "@/dummy";
+import { render, screen, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import nock from "nock";
+import { Leaderboard } from "@/containers/Leaderboard";
+import { leaderboard } from "../dummy";
 
-describe("Leaderboard Component", () => {
-  const data: any[] = leaderboard;
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
-  test("renders without errors", () => {
-    render(<Leaderboard data={data} />);
+beforeAll(() => {
+  if (!global.fetch) {
+    global.fetch = require("node-fetch");
+  }
+});
+
+describe("Leaderboard", () => {
+  it("it should render the leaderboard component and display data", async () => {
+    nock("https://localhost:3000")
+      .get("/tour-ranking")
+      .query(true)
+      .reply(200, leaderboard);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Leaderboard />
+      </QueryClientProvider>
+    );
+
+    expect(screen.getByTestId("tour")).toBeInTheDocument();
+    expect(screen.getByTestId("seasson")).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByText("Collin Morikawa")).toBeInTheDocument();
+      expect(screen.getByText("Matt Fitzpatrick")).toBeInTheDocument();
+    });
   });
 
-  test("filters change state correctly", () => {
-    const { getByTestId } = render(<Leaderboard data={data} />);
+  it("it should display Matt Fitzpatrick when season is 2022", async () => {
+    nock("https://localhost:3000")
+      .get("/tour-ranking")
+      .query(true)
+      .reply(200, leaderboard);
 
-    const tourDropdown = getByTestId("tour") as HTMLSelectElement;
-    fireEvent.change(tourDropdown, { target: { value: "2" } });
-    expect(tourDropdown.value).toBe("2");
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Leaderboard />
+      </QueryClientProvider>
+    );
 
-    const seasonDropdown = getByTestId("seasson") as HTMLSelectElement;
-    fireEvent.change(seasonDropdown, { target: { value: "3" } });
-    expect(seasonDropdown.value).toBe("3");
+    await waitFor(async () => {
+      const selectSeason = screen.getByTestId("seasson") as HTMLSelectElement;
+      selectSeason.value = "2022";
+
+      await waitFor(() => {
+        expect(screen.getByText("Matt Fitzpatrick")).toBeInTheDocument();
+      });
+    });
+  });
+
+  it("it should change the page when the previous/next buttons are clicked and Will Zalatoris should be found on the second page", async () => {
+    nock("https://localhost:3000")
+      .get("/tour-ranking")
+      .query(true)
+      .reply(200, leaderboard);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Leaderboard />
+      </QueryClientProvider>
+    );
+
+    await waitFor(async () => {
+      const previousPageButton = screen.getByTestId("previous-page");
+      previousPageButton.click();
+
+      await waitFor(async () => {
+        const currentPage = screen.getByTestId("current-page");
+        expect(currentPage).toHaveTextContent("1");
+      });
+
+      const nextPageButton = screen.getByTestId("next-page");
+      nextPageButton.click();
+
+      await waitFor(async () => {
+        const currentPage = screen.getByTestId("current-page");
+        console.log(currentPage.TEXT_NODE);
+        expect(currentPage).toHaveTextContent("2");
+        expect(screen.getByText("Will Zalatoris")).toBeInTheDocument();
+      });
+    });
   });
 });
