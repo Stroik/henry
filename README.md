@@ -15,8 +15,14 @@ git clone git@github.com:Stroik/henry.git
 cd henry
 
 npm i
+```
 
-npm run dev
+## Create environment variables
+
+Rename the `.env.example` file to `.env` and fill in the values.
+
+```bash
+cp .env.example .env
 ```
 
 ## Running the tests
