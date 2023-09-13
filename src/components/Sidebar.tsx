@@ -13,6 +13,7 @@ export const Sidebar = () => {
         <Link
           href="/tour-leaderboard"
           className="bg-[#FFE84D] w-12 h-12 flex items-center justify-center rounded-xl"
+          prefetch={true}
         >
           <IconLeaderboard data-testid="icon-leaderboard" />
         </Link>

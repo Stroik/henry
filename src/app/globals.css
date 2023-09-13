@@ -23,6 +23,19 @@
   src: url(../assets/fonts/Avenir_Light.ttf) format("truetype");
 }
 
+::-webkit-scrollbar {
+  @apply w-2;
+}
+::-webkit-scrollbar-track {
+  @apply bg-amber-200;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-amber-400;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-amber-500;
+}
+
 body {
   @apply grid w-full h-screen;
   grid-template-areas: "sidebar" "content";
@@ -126,4 +139,31 @@ tbody tr td {
 }
 .skeleton.skeleton-loading {
   @apply bg-gradient-to-r from-[#F2F2F2] to-[#E6E6E6] rounded-md animate-pulse transition-all duration-300;
+}
+
+.homepage {
+  @apply w-full h-full overflow-y-auto px-4 max-w-2xl;
+}
+@screen md {
+  .homepage {
+    @apply px-10 pb-6;
+  }
+}
+.homepage h2 {
+  @apply text-2xl font-avenir pt-4 pb-2;
+}
+.homepage p {
+  @apply text-base font-thin text-black;
+}
+.homepage ol {
+  @apply list-decimal list-inside;
+}
+.homepage a {
+  @apply hover:border-b hover:border-[#FFE84D];
+}
+.homepage .header-wrapper {
+  @apply relative w-full h-[100px];
+}
+.homepage .header-wrapper img {
+  @apply object-contain object-left;
 }

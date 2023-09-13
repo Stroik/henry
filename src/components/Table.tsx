@@ -68,7 +68,7 @@ export const Table = ({ columns, data, pagination, setPagination }: Props) => {
                   colSpan={columns.length}
                   className="text-center font-avenir"
                 >
-                  There is no data to display for this query
+                  No results for tour/season combination
                 </td>
               </tr>
             )}
