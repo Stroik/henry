@@ -1,4 +1,6 @@
 import {
+  OnChangeFn,
+  PaginationState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -7,20 +9,36 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { IconArrowLeft, IconArrowRight } from "./Icons";
+import { Ranking } from "@/types/Ranking";
+
+type Data = {
+  rows: Ranking[];
+  pageCount: number;
+};
 
 interface Props {
-  data: Array<any>;
+  data: Data;
   columns: Array<any>;
+  pagination: PaginationState;
+  setPagination: OnChangeFn<PaginationState>;
 }
 
-export const Table = ({ columns, data }: Props) => {
+export const Table = ({ columns, data, pagination, setPagination }: Props) => {
+  console.log("data", data);
   const table = useReactTable({
-    data,
+    data: data?.rows,
     columns,
+    pageCount: data?.pageCount ?? -1,
+    state: {
+      pagination,
+    },
+    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
+    manualPagination: true,
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    debugTable: true,
   });
 
   return (
@@ -32,24 +50,11 @@ export const Table = ({ columns, data }: Props) => {
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th key={header.id} style={{ width: header.getSize() }}>
-                    <div
-                      {...{
-                        className: header.column.getCanSort()
-                          ? "cursor-pointer select-none relative"
-                          : "relative",
-                        onClick: header.column.getToggleSortingHandler(),
-                      }}
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                      {{
-                        asc: "⌃",
-                        desc: "⌄",
-                      }[header.column.getIsSorted() as string] ?? null}
+                    <div>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                     </div>
                   </th>
                 ))}
@@ -57,6 +62,16 @@ export const Table = ({ columns, data }: Props) => {
             ))}
           </thead>
           <tbody>
+            {table.getRowModel().rows.length === 0 && (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="text-center font-avenir"
+                >
+                  There is no data to display for this query
+                </td>
+              </tr>
+            )}
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
@@ -88,7 +103,9 @@ export const Table = ({ columns, data }: Props) => {
         >
           <IconArrowRight />
         </button>
-        <span className="total">{data?.length} items</span>
+        <span className="total">
+          {data?.rows.length * data?.pageCount} items
+        </span>
       </div>
     </>
   );

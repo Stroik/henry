@@ -81,13 +81,13 @@ body {
 }
 
 .dropdown {
-  @apply relative text-sm inline-flex self-center rounded-lg border border-[#B8B8B8] pl-2 pr-8 py-1 font-avenir;
+  @apply relative text-sm inline-flex self-center rounded-lg border border-[#B8B8B8] px-2 pt-2 pb-1 leading-4 font-avenir;
 }
 .dropdown select {
   @apply appearance-none w-full focus:active:outline-none focus:outline-none focus:ring-0 focus:border-transparent;
 }
 .dropdown label {
-  @apply absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none z-0;
+  @apply absolute right-1 top-1/2 transform -translate-y-1/2 pointer-events-none z-0;
 }
 
 table {
@@ -120,4 +120,10 @@ tbody tr td {
 }
 .pagination span {
   @apply select-none;
+}
+.skeleton {
+  @apply h-5;
+}
+.skeleton.skeleton-loading {
+  @apply bg-gradient-to-r from-[#F2F2F2] to-[#E6E6E6] rounded-md animate-pulse transition-all duration-300;
 }

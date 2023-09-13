@@ -10,6 +10,7 @@
     "test": "jest --watchAll"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.35.3",
     "@tanstack/react-table": "^8.9.3",
     "@types/node": "20.5.4",
     "@types/react": "18.2.21",
