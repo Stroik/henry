@@ -35,7 +35,7 @@ describe("Leaderboard", () => {
     expect(screen.getByTestId("tour")).toBeInTheDocument();
     expect(screen.getByTestId("seasson")).toBeInTheDocument();
 
-    await waitFor(() => {
+    await waitFor(async () => {
       expect(screen.getByText("Collin Morikawa")).toBeInTheDocument();
       expect(screen.getByText("Matt Fitzpatrick")).toBeInTheDocument();
     });
