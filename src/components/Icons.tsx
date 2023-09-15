@@ -5,6 +5,7 @@ export const IconHenry = (props: any) => (
     viewBox="0 0 40 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    data-testid="icon-henry"
     {...props}
   >
     <path d="M29.4356 0H20.9294V24H29.4356V0Z" fill="black" />
@@ -27,6 +28,7 @@ export const IconLeaderboard = (props: any) => (
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    data-testid="icon-leaderboard"
     {...props}
   >
     <path
@@ -49,6 +51,7 @@ export const IconArrowDown = (props: any) => (
     height="20"
     viewBox="0 0 21 20"
     fill="none"
+    data-testid="icon-arrow-down"
     {...props}
   >
     <path
@@ -65,6 +68,7 @@ export const IconArrowRight = (props: any) => (
     height="24"
     viewBox="0 0 25 24"
     fill="none"
+    data-testid="icon-arrow-right"
     {...props}
   >
     <path
@@ -81,6 +85,7 @@ export const IconArrowLeft = (props: any) => (
     height="24"
     viewBox="0 0 25 24"
     fill="none"
+    data-testid="icon-arrow-left"
     {...props}
   >
     <path

@@ -41,7 +41,7 @@ export const Table = ({ columns, data, pagination, setPagination }: Props) => {
 
   return (
     <>
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto" data-testid="table-component">
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (

@@ -1,5 +1,5 @@
 export const TableSkeleton = () => (
-  <div className="w-full">
+  <div className="w-full" data-testid="skeleton">
     <table>
       <thead>
         <tr>

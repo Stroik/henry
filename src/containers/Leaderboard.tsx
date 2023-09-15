@@ -10,7 +10,7 @@ import { useLeaderboard } from "@/hooks/useLeaderboard";
 
 export const Leaderboard = () => {
   const [tour, setTour] = useState<number>(1);
-  const [seasson, setSeasson] = useState<number>(2021);
+  const [season, setSeason] = useState<number>(2023);
 
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -21,10 +21,10 @@ export const Leaderboard = () => {
     pageIndex,
     pageSize,
     tourId: tour,
-    season: seasson,
+    season: season,
   };
 
-  const { data } = useLeaderboard(fetchDataOptions);
+  const { data, isLoading } = useLeaderboard(fetchDataOptions);
 
   const defaultData = useMemo(() => [], []);
   const pagination = useMemo(
@@ -96,18 +96,18 @@ export const Leaderboard = () => {
           </select>
         </div>
         <div className="dropdown">
-          <label htmlFor="seasson">
+          <label htmlFor="season">
             <IconArrowDown />
           </label>
           <select
-            name="seasson"
-            id="seasson"
-            value={seasson}
-            onChange={(e) => setSeasson(e.target.value as any)}
-            data-testid="seasson"
+            name="season"
+            id="season"
+            value={season}
+            onChange={(e) => setSeason(e.target.value as any)}
+            data-testid="season"
           >
             <option value="" disabled>
-              Seasson
+              Season
             </option>
             {Array.from({ length: 4 }).map((_, i) => (
               <option key={i} value={2023 - i}>
@@ -117,15 +117,14 @@ export const Leaderboard = () => {
           </select>
         </div>
       </div>
-      {data ? (
+      {isLoading && <TableSkeleton />}
+      {data && (
         <Table
           columns={columns}
           data={data ?? defaultData}
           pagination={pagination}
           setPagination={setPagination}
         />
-      ) : (
-        <TableSkeleton />
       )}
     </div>
   );

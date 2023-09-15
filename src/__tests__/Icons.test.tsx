@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
 import {
   IconHenry,
@@ -5,26 +6,31 @@ import {
   IconArrowDown,
   IconArrowRight,
   IconArrowLeft,
-} from "../components/Icons";
+} from "@/components/Icons";
 
 describe("Icon Components", () => {
-  test("IconHenry renders without errors", () => {
-    render(<IconHenry />);
+  it("<IconHenry /> should renders without errors", () => {
+    const { getByTestId } = render(<IconHenry />);
+    expect(getByTestId("icon-henry")).toBeInTheDocument();
   });
 
-  test("IconLeaderboard renders without errors", () => {
-    render(<IconLeaderboard />);
+  it("<IconLeaderboard /> should renders without errors", () => {
+    const { getByTestId } = render(<IconLeaderboard />);
+    expect(getByTestId("icon-leaderboard")).toBeInTheDocument();
   });
 
-  test("IconArrowDown renders without errors", () => {
-    render(<IconArrowDown />);
+  it("<IconArrowDown /> should renders without errors", () => {
+    const { getByTestId } = render(<IconArrowDown />);
+    expect(getByTestId("icon-arrow-down")).toBeInTheDocument();
   });
 
-  test("IconArrowRight renders without errors", () => {
-    render(<IconArrowRight />);
+  it("<IconArrowRight /> should renders without errors", () => {
+    const { getByTestId } = render(<IconArrowRight />);
+    expect(getByTestId("icon-arrow-right")).toBeInTheDocument();
   });
 
-  test("IconArrowLeft renders without errors", () => {
-    render(<IconArrowLeft />);
+  it("<IconArrowLeft /> should renders without errors", () => {
+    const { getByTestId } = render(<IconArrowLeft />);
+    expect(getByTestId("icon-arrow-left")).toBeInTheDocument();
   });
 });

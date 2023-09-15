@@ -47,7 +47,7 @@ describe("Table Component", () => {
     pageSize: 10,
   };
 
-  it("should render correctly", () => {
+  it("It should render correctly", () => {
     const { getByText } = render(
       <Table
         data={mockData}
@@ -61,7 +61,7 @@ describe("Table Component", () => {
     expect(getByText("Vincent Norrman")).toBeInTheDocument();
   });
 
-  it("should handle pagination correctly", () => {
+  it("It should handle pagination correctly", () => {
     const { getByTestId } = render(
       <Table
         data={mockData}

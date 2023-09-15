@@ -3,7 +3,7 @@ import { IconHenry, IconLeaderboard } from "./Icons";
 
 export const Sidebar = () => {
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" data-testid="sidebar">
       <div className="brand">
         <Link href="/" data-testid="link-to-home">
           <IconHenry data-testid="icon-henry" />
